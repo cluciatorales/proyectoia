@@ -1,0 +1,410 @@
+:root {
+    --bg-main: #fcfbfa;
+    --panel-bg: #ffffff;
+    --text-main: #2d2335;
+    --text-muted: #7e6e85;
+    
+    /* Paleta Cromática Femenina & Orgánica (Soft Brutalism) */
+    --color-primary: #8b5cf6;     /* Lavanda Eléctrico */
+    --color-secondary: #ec4899;   /* Rosa Orquídea */
+    --color-accent: #fbcfe8;      /* Rosa Pastel Suave */
+    --color-mint: #ccfbf1;        /* Menta Suave para contrastes */
+    --color-dark: #1e112a;
+    
+    /* Bordes y Sombras Estilo Brutalista Suave */
+    --border-stroke: 2px solid #1e112a;
+    --shadow-flat: 5px 5px 0px #1e112a;
+    --shadow-flat-hover: 2px 2px 0px #1e112a;
+
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-data: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    font-family: var(--font-display);
+    background-color: var(--bg-main);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(236, 72, 153, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(137, 92, 246, 0.05) 0%, transparent 40%);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.system-container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Cabezal Elegante y Orgánico */
+.system-header {
+    text-align: center;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.sys-title h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-dark);
+    position: relative;
+    display: inline-block;
+}
+
+.sys-title h1::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: var(--color-accent);
+    z-index: -1;
+    border-radius: 4px;
+}
+
+.sys-title p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+.sys-badge {
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    border: var(--border-stroke);
+    background: var(--color-accent);
+    padding: 6px 16px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px 0px #1e112a;
+}
+
+/* Consola de Alertas Elegantemente Destacada */
+.alert-console {
+    background: #ffe4e6;
+    border: var(--border-stroke);
+    color: #9f1239;
+    padding: 18px 24px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    display: none;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-flat);
+}
+
+.alert-console ul { 
+    list-style-position: inside; 
+    margin-top: 8px; 
+}
+
+/* Panel de Control Estilo Bloque */
+.control-deck {
+    background: var(--panel-bg);
+    border: var(--border-stroke);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 35px;
+    box-shadow: var(--shadow-flat);
+}
+
+.deck-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-dark);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.deck-title::before {
+    content: '🧬';
+    font-size: 1.2rem;
+}
+
+/* Formulario Limpio y Estilizado */
+.parameter-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+@media (min-width: 768px) {
+    .parameter-row {
+        grid-template-columns: 1.5fr 1.5fr 1fr;
+    }
+}
+
+.input-node {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-node label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.field-frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-frame input {
+    width: 100%;
+    padding: 16px 18px;
+    background: #faf9f6;
+    border: var(--border-stroke);
+    border-radius: 14px;
+    color: var(--color-dark);
+    font-family: var(--font-data);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.field-frame input:focus {
+    outline: none;
+    background: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0px var(--color-dark);
+}
+
+.field-frame input.input-error {
+    background: #fff1f2;
+    border-color: var(--color-secondary);
+}
+
+.bit-tag {
+    position: absolute;
+    right: 14px;
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    background: var(--color-accent);
+    border: 1.5px solid var(--color-dark);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.field-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    margin-top: 8px;
+    display: none;
+}
+
+.range-info-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    background: #f3f0f5;
+    padding: 12px 18px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+/* Hub de Acciones con Botones Flat Pop */
+.action-hub {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    border-top: 2px dashed #e2dae6;
+    padding-top: 30px;
+}
+
+.tele-btn {
+    font-family: var(--font-display);
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: var(--border-stroke);
+    transition: all 0.15s ease;
+}
+
+.tele-btn.primary {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: var(--shadow-flat);
+}
+
+.tele-btn.primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px var(--color-dark);
+    background: #7c3aed;
+}
+
+.tele-btn.secondary {
+    background: transparent;
+    color: var(--color-dark);
+}
+
+.tele-btn.secondary:hover {
+    background: #f3f0f5;
+    transform: translate(-1px, -1px);
+    box-shadow: 2px 2px 0px var(--color-dark);
+}
+
+.tele-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--color-dark);
+}
+
+/* Panel de Resultados Esbeltos */
+.telemetry-output {
+    display: none;
+    gap: 25px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .telemetry-output {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.specimen-capsule {
+    background: var(--panel-bg);
+    border: var(--border-stroke);
+    border-radius: 24px;
+    padding: 30px;
+    position: relative;
+    box-shadow: var(--shadow-flat);
+}
+
+/* Pequeño tag superior decorativo */
+.specimen-capsule::before {
+    content: 'F1 SPECIMEN';
+    position: absolute;
+    top: -12px;
+    left: 25px;
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    font-weight: 800;
+    background: var(--color-dark);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+}
+
+.capsule-meta {
+    font-family: var(--font-data);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gene-display {
+    font-family: var(--font-data);
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 18px;
+    background: #faf9f6;
+    border: var(--border-stroke);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+/* Estilización del punto de corte */
+.gene-display .cut-left { color: var(--color-primary); }
+.gene-display .cut-right { color: var(--color-secondary); }
+.gene-display .cut-point { 
+    color: var(--color-dark);
+    padding: 0 6px;
+    font-weight: 400;
+    background: var(--color-accent);
+    border-radius: 4px;
+    margin: 0 2px;
+}
+
+.fitness-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: var(--color-mint);
+    border: var(--border-stroke);
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-dark);
+    margin-bottom: 20px;
+}
+
+.alt-variant .fitness-badge {
+    background: var(--color-accent);
+}
+
+.fitness-score {
+    font-family: var(--font-data);
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+/* Log de operaciones como tarjeta de notas */
+.math-log {
+    background: #faf9f6;
+    border: 1.5px solid #e2dae6;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: var(--font-data);
+    font-size: 0.8rem;
+    color: #5c4d63;
+    line-height: 1.6;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.math-log .math-total {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px dashed #e2dae6;
+    color: var(--color-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--text-muted);
+    margin-top: auto;
+}
