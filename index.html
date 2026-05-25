@@ -4,16 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto de Inteligencia Artificial - Simulador Genético</title>
-    <!-- Fuentes tipográficas -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-    <!-- Vinculación del archivo CSS externo -->
     <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 
 <div class="system-container">
     
-    <!-- Cabezal del Sistema -->
     <header class="system-header">
         <div class="sys-title">
             <h1>Proyecto de Inteligencia Artificial</h1>
@@ -22,13 +19,11 @@
         <div class="sys-badge">Área de Secuenciación</div>
     </header>
 
-    <!-- Consola de Errores -->
     <div id="error-box" class="alert-console">
         <strong>⚠️ Validación Requerida:</strong>
         <ul id="error-list"></ul>
     </div>
 
-    <!-- Panel de Entrada de Parámetros -->
     <section class="control-deck">
         <h2 class="deck-title">Configuración de Hebras</h2>
         
@@ -74,10 +69,10 @@
         </form>
     </section>
 
-    <!-- Bloque Inferior de Salida de Datos -->
     <section id="results-panel" class="telemetry-output">
         
-        <!-- Cápsula Hijo 1 -->
+        <div id="optimal-fitness-alert" style="grid-column: 1 / -1; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-family: 'Plus Jakarta Sans', sans-serif;"></div>
+
         <article class="specimen-capsule">
             <div class="capsule-meta">
                 <span>Variante F1-A</span>
@@ -91,7 +86,6 @@
             <div id="res-math1" class="math-log"></div>
         </article>
 
-        <!-- Cápsula Hijo 2 -->
         <article class="specimen-capsule alt-variant">
             <div class="capsule-meta">
                 <span>Variante F1-B</span>
@@ -125,6 +119,7 @@
     const cutRangeLabel = document.getElementById('cut-range-label');
     const resultsPanel = document.getElementById('results-panel');
     const errorBox = document.getElementById('error-box');
+    const optimalAlert = document.getElementById('optimal-fitness-alert');
 
     function actualizarLimitesCorte() {
         const len = padreInput.value.length;
@@ -207,6 +202,7 @@
         
         errorBox.style.display = 'none';
         resultsPanel.style.display = 'none';
+        optimalAlert.innerHTML = '';
         
         actualizarLimitesCorte();
     });
@@ -246,6 +242,7 @@
         errorBox.style.display = 'none';
         resultsPanel.style.display = 'none';
         errorList.innerHTML = '';
+        optimalAlert.innerHTML = '';
 
         const padre_val = padreInput.value.trim();
         const madre_val = madreInput.value.trim();
@@ -304,6 +301,23 @@
         document.getElementById('res-bin2').innerHTML = formatearCadenaCorte(child2, cut);
         document.getElementById('res-fit2').textContent = fit2.fitness_cuadrado;
         document.getElementById('res-math2').innerHTML = fit2.proceso;
+
+        // --- CÁLCULO DEL FITNESS ÓPTIMO MÁXIMO Y COMPARACIÓN ---
+        const maxDecimalPosible = Math.pow(2, lenPadreVal) - 1;
+        const fitnessOptimoMaximo = Math.pow(maxDecimalPosible, 2);
+
+        let mensajeFitness = `<strong>Análisis de Aptitud:</strong> El Fitness Óptimo Máximo teórico para ${lenPadreVal} bits es <strong>${fitnessOptimoMaximo}</strong> (cromosoma completamente de unos).<br>`;
+
+        if (fit1.fitness_cuadrado > fit2.fitness_cuadrado) {
+            mensajeFitness += `✨ El <strong>Hijo 1 (Variante F1-A)</strong> es el espécimen más apto con un fitness de <strong>${fit1.fitness_cuadrado}</strong>.`;
+        } else if (fit2.fitness_cuadrado > fit1.fitness_cuadrado) {
+            mensajeFitness += `✨ El <strong>Hijo 2 (Variante F1-B)</strong> es el espécimen más apto con un fitness de <strong>${fit2.fitness_cuadrado}</strong>.`;
+        } else {
+            mensajeFitness += `⚖️ Ambos hijos tienen un fitness idéntico de <strong>${fit1.fitness_cuadrado}</strong> (Empate estructural).`;
+        }
+
+        optimalAlert.innerHTML = mensajeFitness;
+        // -------------------------------------------------------
 
         resultsPanel.style.display = 'grid';
         resultsPanel.scrollIntoView({ behavior: 'smooth' });
